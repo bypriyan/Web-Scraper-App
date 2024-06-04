@@ -48,6 +48,19 @@ class MyJavaScriptInterface {
                 redColorAppeared=true
 //            Log.d("lelo ", " color ${it.rgb} value ${it.value.replace("x","")}"
             }
+
+            if(it.rgb.equals(Constants.KEY_PURPLE_BLUE_COLOR)){
+                conservativePinkColorsList.add(it)
+            }
+
+            if(it.rgb.equals(Constants.KEY_BLUE_COLOR)){
+                blueColorsList.add(it)
+            }
+
+            if(it.value.replace("x","").toFloat()<1.90){
+                dataLessThan1p90List.add(it)
+            }
+
             count++
         }
 
@@ -67,6 +80,22 @@ class MyJavaScriptInterface {
             if (last6Data.all { it < 8.00 }) {
                 Log.d("lelo", "showHTML: 2nd GOOD")
                 // Continue to number 3
+            }
+        }
+        //3rd
+        if (redColorAppeared) {
+            val last9Data = dataList.take(9)
+            if (last9Data.none { it.rgb.equals(Constants.KEY_PINK_COLOR)} && last9Data.count { it.value.replace("x","").toFloat() >= 4.00 } >= 3 && last9Data.any { it.value.replace("x","").toFloat()  >= 8.00 }) {
+                Log.d("lolo"," 3rd GOOD")
+                // Continue to number 4
+            }
+        }
+        //4th
+        if (conservativePinkColorsList.size >= 2) {
+            val sum = conservativePinkColorsList.map { (it.value.replace("x","").toFloat())}.sum()
+            if (sum <= 9.00 && blueColorsList.size >= 3 && dataLessThan1p90List.size >= 2) {
+                Log.d("lolo", "showHTML: 4th good")
+                // Start fresh from number 1
             }
         }
 
