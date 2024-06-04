@@ -93,6 +93,8 @@ class MyJavaScriptInterface {
         //4th
         if (conservativePinkColorsList.size >= 2) {
             val sum = conservativePinkColorsList.map { (it.value.replace("x","").toFloat())}.sum()
+            Log.d("lelo", "sum $sum ")
+
             if (sum <= 9.00 && blueColorsList.size >= 3 && dataLessThan1p90List.size >= 2) {
                 Log.d("lolo", "showHTML: 4th good")
                 // Start fresh from number 1

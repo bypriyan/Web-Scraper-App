@@ -41,6 +41,7 @@ android {
     }
     buildFeatures {
         compose = true
+        viewBinding = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -124,6 +125,16 @@ dependencies {
     implementation ("androidx.constraintlayout:constraintlayout-compose:1.0.1")
     //
     implementation ("org.jsoup:jsoup:1.16.1")
+
+    //multidex
+    implementation ("androidx.annotation:annotation:1.6.0")
+    implementation ("org.jetbrains:annotations:24.0.1")
+    implementation ("androidx.multidex:multidex:2.0.1")
+    //sdp ssp
+    implementation ("com.intuit.sdp:sdp-android:1.1.0")
+    implementation ("com.intuit.ssp:ssp-android:1.1.0")
+    //lottie anim
+    implementation ("com.airbnb.android:lottie:6.4.0")
 
 }
 
