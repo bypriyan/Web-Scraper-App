@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "676402316661",
+    "project_id": "friends-hub-7d1b1",
+    "storage_bucket": "friends-hub-7d1b1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:676402316661:android:24172e5122cddb26edff3c",
+        "android_client_info": {
+          "package_name": "com.bypriyan.friendshub"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXrCCkgv1iGeFOmLp04vFxnIB2aY-keIg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
