@@ -17,7 +17,10 @@ class MyJavaScriptInterface {
             if (matchResult != null) {
                 val (r, g, b) = matchResult.destructured
                 val value = element.text() // Extract the associated data
-                Log.d("lelo ", "RGB: ($r, $g, $b), Value: $value")
+                if(value.length>0){
+                    //RGB: (192, 23, 180)
+                    Log.d("lelo ", "RGB: ($r, $g, $b), Value: $value")
+                }
             }
         }
     }
