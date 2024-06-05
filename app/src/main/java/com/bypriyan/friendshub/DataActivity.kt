@@ -12,6 +12,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -22,11 +23,15 @@ import com.google.firebase.database.ValueEventListener
 class DataActivity : AppCompatActivity() {
 
     lateinit var firebaseAuth: FirebaseAuth
+    lateinit var swipeRefreshLayout: SwipeRefreshLayout
+    lateinit var webView: WebView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_data)
-        val webView: WebView = findViewById(R.id.webview)
+
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout)
+        webView = findViewById(R.id.webview)
         webView.visibility = View.GONE
 
         firebaseAuth = FirebaseAuth.getInstance()
@@ -36,11 +41,11 @@ class DataActivity : AppCompatActivity() {
             ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val timestamp = snapshot.child("timestamp").value as String
-                Log.d("TAG", "onDataChange: new timestamp is ${System.currentTimeMillis()+300000 }")
-                if(System.currentTimeMillis()<timestamp.toLong()){
+                Log.d("TAG", "onDataChange: new timestamp is ${System.currentTimeMillis() + 300000}")
+                if (System.currentTimeMillis() < timestamp.toLong()) {
                     webView.visibility = View.VISIBLE
-                }else{
-
+                } else {
+                    webView.visibility = View.GONE
                 }
             }
 
@@ -48,7 +53,6 @@ class DataActivity : AppCompatActivity() {
                 // Handle error
             }
         })
-
 
         webView.settings.javaScriptEnabled = true
 
@@ -73,6 +77,9 @@ class DataActivity : AppCompatActivity() {
                         Log.d("lemo", "onPageFinished: $html")
                     }
                 }, 3000) // Adjust the delay as needed
+
+                // Stop the refreshing animation
+                swipeRefreshLayout.isRefreshing = false
             }
 
             override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
@@ -81,5 +88,10 @@ class DataActivity : AppCompatActivity() {
         }
 
         webView.loadUrl("https://aviator-demo.spribegaming.com/?currency=USD&operator=demo&jurisdiction=CW&lang=EN&return_url=https:%2F%2Fspribe.co%2Fgames&user=21437&token=xKkYfxMpu2CGTMveNOzkH0VJNTMuAoi9")  // Replace with your URL
+
+        swipeRefreshLayout.setOnRefreshListener {
+            // Reload the WebView
+            webView.reload()
+        }
     }
 }

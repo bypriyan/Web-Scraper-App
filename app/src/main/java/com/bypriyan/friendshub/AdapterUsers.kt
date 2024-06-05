@@ -39,18 +39,26 @@ class AdapterUsers(private val context: Context, private val userList: List<Mode
         holder.isAllowedIv.setOnClickListener {
             //access do
             if(isAllowed){
-                var hasmap:HashMap<String, String> = HashMap()
-                hasmap.put("timestamp", (System.currentTimeMillis()+86400000).toString())
-                var reference: DatabaseReference = FirebaseDatabase.getInstance().getReference("users")
-                reference.child(modelUser.uid).setValue(hasmap).addOnSuccessListener {
+                val hasmap: HashMap<String, Any> = HashMap()
+                hasmap["email"] = modelUser.email
+                hasmap["password"] = modelUser.password
+                hasmap["uid"] = modelUser.uid
+                hasmap["timestamp"] = (System.currentTimeMillis() + 86400000).toString()
+
+                val reference: DatabaseReference = FirebaseDatabase.getInstance().getReference("users")
+                reference.child(modelUser.uid).updateChildren(hasmap).addOnSuccessListener {
                     holder.isAllowedIv.setImageResource(R.drawable.ic_cancel)
                     isAllowed = false
                 }
+
             }else{
-                var hasmap:HashMap<String, String> = HashMap()
+                var hasmap:HashMap<String, Any> = HashMap()
+                hasmap.put("email", modelUser.email)
+                hasmap.put("password", modelUser.password)
+                hasmap.put("uid", modelUser.uid)
                 hasmap.put("timestamp", (System.currentTimeMillis()-1).toString())
                 var reference: DatabaseReference = FirebaseDatabase.getInstance().getReference("users")
-                reference.child(modelUser.uid).setValue(hasmap).addOnSuccessListener {
+                reference.child(modelUser.uid).updateChildren(hasmap).addOnSuccessListener {
                     holder.isAllowedIv.setImageResource(R.drawable.ic_allowed)
                     isAllowed = true
                 }

@@ -59,13 +59,13 @@ class LoginActivity : AppCompatActivity() {
                         if (task.isSuccessful) {
                             // Sign in success
 
-                            var hasmap:HashMap<String, String> = HashMap()
-                            hasmap.put("email", email)
-                            hasmap.put("password", pass)
-                            hasmap.put("uid", auth.currentUser!!.uid)
-                            hasmap.put("timestamp", (System.currentTimeMillis()-2).toString())
+                            val hasmap: HashMap<String, String> = HashMap()
+                            hasmap["email"] = email
+                            hasmap["password"] = pass
+                            hasmap["uid"] = auth.currentUser!!.uid
+                            hasmap["timestamp"] = (System.currentTimeMillis() - 2).toString()
 
-                            var reference:DatabaseReference = FirebaseDatabase.getInstance().getReference("users")
+                            val reference: DatabaseReference = FirebaseDatabase.getInstance().getReference("users")
                             reference.child(auth.currentUser!!.uid).setValue(hasmap).addOnSuccessListener {
                                 startActivity(Intent(this, DataActivity::class.java))
                             }

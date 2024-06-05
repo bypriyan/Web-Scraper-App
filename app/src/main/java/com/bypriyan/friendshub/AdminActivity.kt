@@ -27,18 +27,24 @@ class AdminActivity : AppCompatActivity() {
         binding = ActivityAdminBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val reference: DatabaseReference = FirebaseDatabase.getInstance().getReference("users")
-        reference.addValueEventListener(object : ValueEventListener {
+        val reference: DatabaseReference = FirebaseDatabase.getInstance().getReference()
+        reference.child("users").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+                userList.clear()
                 if (snapshot.exists() && snapshot.hasChildren()) {
-                    userList.clear()
                     snapshot.children.forEach { dataSnapshot ->
+
                         val user = dataSnapshot.getValue(ModelUsers::class.java)
+
+                        val email = dataSnapshot.child("email").value as String
+                        val password = dataSnapshot.child("password").value as String
+                        val timestamp = dataSnapshot.child("timestamp").value as String
+                        val uid = dataSnapshot.child("uid").value as String
+
                         Log.d("AdminActivity", "User fetched: $user")
                         user?.let { userList.add(it) }
                     }
-                    Toast.makeText(this@AdminActivity, "Fetched ${userList.size} users", Toast.LENGTH_SHORT).show()
-                    binding.usersRV.adapter?.notifyDataSetChanged()
+                    binding.usersRV.adapter = AdapterUsers(this@AdminActivity, userList)
                 } else {
                     Toast.makeText(this@AdminActivity, "No data found", Toast.LENGTH_SHORT).show()
                 }
