@@ -6,7 +6,7 @@ import android.widget.Toast
 import com.bypriyan.bustrackingsystem.utility.Constants
 import org.jsoup.Jsoup
 
-class MyJavaScriptInterface {
+class MyJavaScriptInterface (private val activity: DataActivity) {
     @JavascriptInterface
     fun showHTML(html: String) {
         val doc = Jsoup.parse(html)
@@ -71,6 +71,9 @@ class MyJavaScriptInterface {
         //1st
         if (recentData.take(5).all { it < 7.00 } && recentData.take(5).any { it >= 1.00 } && sixthData < 8.00) {
             Log.d("lelo ", "1st good")
+            activity.updatetv1("1st good")
+        }else{
+            activity.updatetv1("1st not good")
         }
 
         Log.d("lelo", "showHTML: red color $redColorAppeared")
@@ -79,15 +82,20 @@ class MyJavaScriptInterface {
             val last6Data = recentData.take(6)
             if (last6Data.all { it < 8.00 }) {
                 Log.d("lelo", "showHTML: 2nd GOOD")
+                activity.updatetv2("2nd good")
                 // Continue to number 3
+            }else{
+                activity.updatetv2("2nd not good")
             }
         }
         //3rd
         if (redColorAppeared) {
             val last9Data = dataList.take(9)
             if (last9Data.none { it.rgb.equals(Constants.KEY_PINK_COLOR)} && last9Data.count { it.value.replace("x","").toFloat() >= 4.00 } >= 3 && last9Data.any { it.value.replace("x","").toFloat()  >= 8.00 }) {
-                Log.d("lolo"," 3rd GOOD")
+                activity.updatetv3("3rd good")
                 // Continue to number 4
+            }else{
+                activity.updatetv3("3rd not good")
             }
         }
         //4th
@@ -97,7 +105,10 @@ class MyJavaScriptInterface {
 
             if (sum <= 9.00 && blueColorsList.size >= 3 && dataLessThan1p90List.size >= 2) {
                 Log.d("lolo", "showHTML: 4th good")
+                activity.updatetv4("4th good")
                 // Start fresh from number 1
+            }else{
+                activity.updatetv4("4th not good")
             }
         }
 

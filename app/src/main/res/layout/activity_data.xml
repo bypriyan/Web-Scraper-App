@@ -10,6 +10,7 @@
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"
+        android:layout_above="@id/lin"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -19,5 +20,82 @@
             android:layout_height="match_parent" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <RelativeLayout
+        android:id="@+id/lin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_15sdp"
+        android:layout_alignParentBottom="true">
+
+        <LinearLayout
+            android:id="@+id/oneLin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_toLeftOf="@id/logoutBtn">
+
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/oneTv"
+                android:layout_width="wrap_content"
+                android:text="loading.."
+                android:textColor="@color/black"
+                android:fontFamily="@font/bold"
+                android:textSize="@dimen/_12ssp"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/twoTv"
+                android:layout_width="wrap_content"
+                android:text="loading.."
+                android:textColor="@color/black"
+                android:fontFamily="@font/bold"
+                android:textSize="@dimen/_12ssp"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_below="@id/oneLin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/logoutBtn">
+
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/threeTv"
+                android:layout_width="wrap_content"
+                android:text="loading.."
+                android:textColor="@color/black"
+                android:fontFamily="@font/bold"
+                android:textSize="@dimen/_12ssp"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/fourTv"
+                android:layout_width="wrap_content"
+                android:text="loading.."
+                android:textColor="@color/black"
+                android:fontFamily="@font/bold"
+                android:textSize="@dimen/_12ssp"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/logoutBtn"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:src="@drawable/ic_logout"
+            android:padding="@dimen/_10sdp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="@dimen/_5sdp"
+            android:background="@drawable/rectangle_blue"
+            android:layout_marginBottom="@dimen/_15sdp"/>
+
+    </RelativeLayout>
+
 
 </RelativeLayout>

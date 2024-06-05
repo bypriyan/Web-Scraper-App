@@ -101,6 +101,7 @@ class LoginActivity : AppCompatActivity() {
         super.onStart()
         if (auth.currentUser != null) {
             startActivity(Intent(this, DataActivity::class.java))
+            finish()
     }
 
     }
